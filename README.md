@@ -1,6 +1,6 @@
 # Introduction
 
-Dockerfile to build a ActiveMQ container image.
+Dockerfile to build a Java EE Container Manager Docker image.
 
 # Hardware Requirements
 
