@@ -1,0 +1,6 @@
+# A key/value list of all known versions
+CENTOS=6.6
+JDK=8u45
+JBOSS_AMQ=6.2.0
+JBOSS_AMQ_BUILD=redhat-133
+JBOSS_EAP=6.4.0
