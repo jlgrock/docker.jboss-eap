@@ -2,10 +2,6 @@
 
 Dockerfile to build a ActiveMQ container image.
 
-## Version
-
-Current Version: **6.4.0**
-
 # Hardware Requirements
 
 ## Memory
@@ -28,16 +24,9 @@ Current Version: **6.4.0**
 Pull the image from the docker index. This is the recommended method of installation as it is easier to update image. These builds are performed by the **Docker Trusted Build** service.
 
 ```bash
-docker pull jlgrock/jboss-eap:6.4.0
+docker pull jlgrock/jboss-eap:$VERSION
 ```
 
-Alternately you can build the image locally.
-
-```bash
-git clone https://github.com/jlgrock/docker.jboss-eap.git
-cd docker.jboss-eap
-docker build --tag="jlgrock/activemq" .
-```
 
 
 
