@@ -17,7 +17,7 @@ Dockerfile to build a ActiveMQ container image.
 * Download JBoss A-MQ from http://www.jboss.org/products/amq/download/
 * Put the file in the "install_files" directory
 * Update the VERSION file
-* run `batch.sh`
+* run `build.sh`
 
 # Installation
 
