@@ -22,4 +22,4 @@ RUN echo "JAVA_OPTS=\"\$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.addr
 EXPOSE 8080 9990 9999
 
 ### Start EAP
-CMD $EAP_HOME/bin/standalone.sh -c standalone-full-ha.xml
+CMD $EAP_HOME/startup.sh

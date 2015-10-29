@@ -15,13 +15,17 @@
 
 echo "Processing for JBOSS EAP Version $JBOSS_EAP"
 
-if [ ! -e install_files/jboss-eap-$JBOSS_EAP.zip ]
-then
+if [ ! -e install_files/jboss-eap-$JBOSS_EAP.zip ]; then
 	echo "could not find file install_files/jboss-eap-$JBOSS_EAP.zip"
 	echo "You should put the required JBoss EAP binary into the root directory first."
 	exit 255
 fi
 
+if [ ! -e install_files/activemq-rar*.rar ]; then
+	echo "could not find file install_files/jboss-activemq-rar*.rar"
+	echo "You should put the required JBoss A-MQ connector in the root directory first."
+	exit 255
+fi
 # Create containers
 echo "Creating JBoss EAP Container ..."
 docker build -q --rm -t jlgrock/jboss-eap:$JBOSS_EAP .
