@@ -20,7 +20,6 @@ Dockerfile to build a Java EE Container Manager Docker image.
 * copy `activemq-rar-*.rar` file to the local `install_files`
 * run `build.sh`
 
-
 # Installation
 
 Pull the image from the docker index. This is the recommended method of installation as it is easier to update image. These builds are performed by the **Docker Trusted Build** service.
@@ -42,32 +41,33 @@ Below is the complete list of available options that can be used to customize yo
 - **MODE**: You can either run in `STANDARD` mode (single server), `DOMAIN_MASTER` (clustered - is required for any slaves to be started), or `DOMAIN_SLAVE` (clustered - needs to be linked to the DOMAIN_MASTER).  The default is `STANDARD`.
 - **MESSAGE_QUEUE**: The message queue to use.  By default, EAP current uses HornetQ, which is specified by `HORNETQ`.  If this is set to `ACTIVE_MQ`, this will instead use the connector for ActiveMQ/A-MQ.  This will be paired with whatever A-MQ connector that is provided at the time of building.
 - **MQ_HOST**: The hostname of ActiveMQ server. The default is `localhost`.
-- **MQ_USER_LOGIN**: The login to access the Message Queue.  If needed, the Default is set to `user`.
-- **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `user`.
+- **MQ_PORT**: The hostname of ActiveMQ server. The default is `61616`.
+- **MQ_USER_LOGIN**: The login to access the Message Queue.  If needed, the Default is set to `admin`.
+- **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `admin`.
 
-# Examples
+# Examples of Running Containers
 
 Starting a Standalone EAP instance
-```
+```bash
 docker run -it --rm -P jlgrock/jboss-eap:6.4.0
 ```
 
 Starting a Master in a Clustered environment
-```
+```bash
 docker run -it --rm -P -e MODE=DOMAIN_MASTER --name eap_master jlgrock/jboss-eap:6.4.0
 ```
 
 Adding a Slave in a Clustered environment
-```
+```bash
 docker run -it --rm -e MODE=DOMAIN_SLAVE --link eap_master:MASTER jlgrock/jboss-eap:6.4.0
 ```
 
 Starting a Master in a Clustered environment with an A-MQ connector
-```
-docker run -it --rm -P -e MODE=DOMAIN_MASTER --name eap_master jlgrock/jboss-eap:6.4.0
+```bash
+docker run -it --rm -P -p 9990:9990 -e MODE=DOMAIN_MASTER -e MESSAGE_QUEUE=ACTIVE_MQ --name eap_master jlgrock/jboss-eap:6.4.0
 ```
 
 Adding a Slave in a Clustered environment with an A-MQ connector
-```
-docker run -it --rm -e MODE=DOMAIN_SLAVE --link eap_master:MASTER jlgrock/jboss-eap:6.4.0
+```bash
+docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ACTIVE_MQ --link eap_master:MASTER jlgrock/jboss-eap:6.4.0
 ```

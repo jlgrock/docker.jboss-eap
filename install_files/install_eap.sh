@@ -21,7 +21,7 @@ sed -i 's/c2xhdmVfdXNlcl9wYXNzd29yZA==/YWRtaW4xMjMh/' $EAP_HOME/domain/configura
 sed -i 's/<remote host="\${jboss\.domain\.master\.address}" port="\${jboss\.domain\.master\.port:9999}" security-realm="ManagementRealm"\/>/<remote host="${jboss.domain.master.address}" port="${jboss.domain.master.port:9999}" username="admin" security-realm="ManagementRealm" \/>/' $EAP_HOME/domain/configuration/host-slave.xml
 
 # Copy the activeMQ connector and activate it
-mv activemq-rar*.rar $EAP_HOME/standalone/deployments/activemq.rar
+mv activemq-rar*.rar $EAP_HOME/standalone/deployments/activemq-rar.rar
 
 # Move the startup script to EAP_HOME
 mv startup.sh $EAP_HOME
