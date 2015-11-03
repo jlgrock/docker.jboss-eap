@@ -8,7 +8,13 @@ Dockerfile to build a Java EE Container Manager Docker image.
 
 - **1GB** is the **standard** memory size. You should up that for production according to your needs.
 
-# How to Build a new Version
+
+# How to get the image
+
+You can either download the image from a docker registry or build it yourself.
+
+## Building the Image
+
 * [Download JBoss EAP](http://www.jboss.org/products/eap/download/)
 * Put the file in the local `install_files` directory
 * Update the VERSION file
@@ -19,20 +25,18 @@ Dockerfile to build a Java EE Container Manager Docker image.
 * navigate this unzipped file to the `lib/optional` directory
 * copy `activemq-rar-*.rar` file to the local `install_files`
 * run `build.sh`
-
-# Installation
-
-Pull the image from the docker index. This is the recommended method of installation as it is easier to update image. These builds are performed by the **Docker Trusted Build** service.
+* 
+These builds are not performed by the **Docker Trusted Build** service because it contains JBoss proprietary code, but this method can be used if using a [Private Docker Registry](https://docs.docker.com/registry/deploying/).
 
 ```bash
 docker pull jlgrock/jboss-eap:$VERSION
 ```
 
-# Building Custom Versions
+## Building Custom Versions
 
 This script will build the core version of the EAP instance, storing the image to `jlgrock/jboss-eap`. If you drop extra WARs into the install directory, you can create a custom deployment. It is suggested that you don't use the build script though, as you'll want to store this image to something other than `jlgrock/jboss-eap`. For example, you can put webapp.war in there and create an instance called `my/webapp` with the command `docker build -q --rm -t my/webapp:$WEBAPP_VERSION`.  Currently, this will only work for the standalone version.
 
-## Available Configuration Parameters
+# Available Configuration Parameters
 
 *Please refer the docker run command options for the `--env-file` flag where you can specify all required environment variables in a single file. This will save you from writing a potentially long docker run command.*
 
@@ -45,7 +49,7 @@ Below is the complete list of available options that can be used to customize yo
 - **MQ_USER_LOGIN**: The login to access the Message Queue.  If needed, the Default is set to `admin`.
 - **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `admin`.
 
-# Examples of Running Containers
+# Examples of Running a Container
 
 Starting a Standalone EAP instance
 ```bash
