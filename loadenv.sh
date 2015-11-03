@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Load the version from the VERSION file
-for line in $(< VERSION)
+for line in $(cat VERSION)
 do
   case $line in
     JBOSS_AMQ=*)  eval $line ;; # beware! eval!
