@@ -11,6 +11,7 @@ ADD VERSION $EAP_PARENT/VERSION
 ADD loadenv.sh $EAP_PARENT/loadenv.sh
 
 WORKDIR $EAP_PARENT
+RUN chmod +x *.sh
 RUN ./install_eap.sh
 
 ### Create EAP User
