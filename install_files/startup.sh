@@ -41,10 +41,11 @@ case "$MODE" in
 			OPTS="$OPTS -Dactivemq.port=$MQ_PORT"
 		fi
 		echo "OPTS=$OPTS"
-		$EAP_HOME/bin/standalone.sh -c standalone.xml $OPTS
 			
+		$EAP_HOME/bin/standalone.sh -c standalone.xml $OPTS -Djboss.bind.address=$HOSTNAME \
+                       -Djboss.bind.address.unsecure=$HOSTNAME \
+                       -Djboss.bind.address.management=$HOSTNAME
 
-		#$EAP_HOME/bin/standalone.sh -c standalone.xml
 	;;
 	DOMAIN_MASTER*)
 		echo "Starting EAP Server as Domain Master"
@@ -75,6 +76,3 @@ case "$MODE" in
 		exit 1
 	;;
 esac
-
-
-
