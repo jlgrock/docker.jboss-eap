@@ -5,6 +5,7 @@ ENV EAP_PARENT /opt/jboss
 ENV EAP_HOME $EAP_PARENT/jboss-eap
 ENV JBOSS_HOME $EAP_PARENT/jboss-eap
 
+ADD resources/ $EAP_PARENT/
 ADD install_files/ $EAP_PARENT/
 ADD VERSION $EAP_PARENT/VERSION
 ADD loadenv.sh $EAP_PARENT/loadenv.sh
