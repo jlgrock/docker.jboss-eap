@@ -11,6 +11,7 @@ ADD VERSION $EAP_PARENT/VERSION
 ADD loadenv.sh $EAP_PARENT/loadenv.sh
 
 WORKDIR $EAP_PARENT
+RUN yum install -y httpd
 RUN chmod +x *.sh
 RUN ./install_eap.sh
 
@@ -18,8 +19,8 @@ RUN ./install_eap.sh
 RUN $EAP_HOME/bin/add-user.sh admin admin123! --silent
 
 ### Open Ports
-# Web, Management Console, Management Console API
-EXPOSE 8080 9990 9999
+# Web, Management Console, Management Console API, Web Proxy, MOD_CLUSTER Manager
+EXPOSE 8080 9990 9999 80 10001
 
 ### Start EAP
 CMD $EAP_HOME/startup.sh

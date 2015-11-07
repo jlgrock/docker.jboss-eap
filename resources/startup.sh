@@ -1,3 +1,11 @@
+#!/bin/sh
+
+# Load the current versions
+. ./loadenv.sh
+
+# set the host ip for eth0 - this may not scale well
+HOST_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+
 if [[ ! "$MODE" ]]; then
 	MODE="STANDALONE"
 fi
@@ -42,16 +50,23 @@ case "$MODE" in
 		fi
 		echo "OPTS=$OPTS"
 			
-		$EAP_HOME/bin/standalone.sh -c standalone.xml $OPTS -Djboss.bind.address=$HOSTNAME \
-                       -Djboss.bind.address.unsecure=$HOSTNAME \
-                       -Djboss.bind.address.management=$HOSTNAME
+		$EAP_HOME/bin/standalone.sh -c standalone.xml $OPTS -Djboss.bind.address=$HOST_IP \
+                       -Djboss.bind.address.unsecure=$HOST_IP \
+                       -Djboss.bind.address.management=$HOST_IP
 
 	;;
 	DOMAIN_MASTER*)
-		echo "Starting EAP Server as Domain Master"
-		if [[ $HOSTNAME ]]; then
-			OPTS="$OPTS -Djboss.bind.address.management=$HOSTNAME"
-		fi
+		echo "Starting EAP Server as Domain Master with mod_cluster load balancer"
+
+		#set up load balancer
+		wget http://downloads.jboss.org/mod_cluster//$MOD_CLUSTER_VERSION/linux-x86_64/mod_cluster-$MOD_CLUSTER_VERSION-linux2-x64-so.tar.gz
+		tar xvfz mod_cluster-$MOD_CLUSTER_VERSION-linux2-x64-so.tar.gz -C /etc/httpd/modules/
+		cp -rf $EAP_PARENT/httpd.conf /etc/httpd/conf/httpd.conf
+		sed -i s/localhost/$HOST_IP/g /etc/httpd/conf/httpd.conf
+		service httpd start
+
+		OPTS="$OPTS -Djboss.bind.address.management=$HOST_IP"
+
 		echo "OPTS=$OPTS"
 		$EAP_HOME/bin/domain.sh --host-config=host-master.xml $OPTS
 	;;
@@ -62,9 +77,9 @@ case "$MODE" in
 		$EAP_HOME/bin/domain.sh --host-config=host-slave.xml \
 			-Djboss.domain.master.address=$MASTER_PORT_9999_TCP_ADDR \
 			-Djboss.domain.master.port=$MASTER_PORT_9999_TCP_PORT \
-			-Djboss.bind.address=$HOSTNAME \
-			-Djboss.bind.address.unsecure=$HOSTNAME \
-			-Djboss.bind.address.management=$HOSTNAME \
+			-Djboss.bind.address=$HOST_IP \
+			-Djboss.bind.address.unsecure=$HOST_IP \
+			-Djboss.bind.address.management=$HOST_IP \
 			-Dactivemq.username=$MQ_USER_LOGIN \
 			-Dactivemq.password=MQ_USER_PASSWORD \
 			-Dactivemq.host=$MQ_HOST \
