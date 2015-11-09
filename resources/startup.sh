@@ -65,10 +65,11 @@ case "$MODE" in
 		sed -i s/localhost/$HOST_IP/g /etc/httpd/conf/httpd.conf
 		service httpd start
 
-		OPTS="$OPTS -Djboss.bind.address.management=$HOST_IP"
-
 		echo "OPTS=$OPTS"
-		$EAP_HOME/bin/domain.sh --host-config=host-master.xml $OPTS
+		$EAP_HOME/bin/domain.sh --host-config=host-master.xml $OPTS \
+			-Djboss.bind.address=$HOST_IP \
+			-Djboss.bind.address.unsecure=$HOST_IP \
+			-Djboss.bind.address.management=$HOST_IP
 	;;
 	DOMAIN_SLAVE*)
 		echo "Starting EAP Server as Domain Slave"
