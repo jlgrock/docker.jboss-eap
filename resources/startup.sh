@@ -48,9 +48,6 @@ case "$MODE" in
 		if [[ "$MQ_USER_LOGIN" ]]; then
 			OPTS="$OPTS -Dactivemq.username=$MQ_USER_LOGIN"
 		fi
-		if [[ "$MQ_USER_LOGIN" ]]; then
-			OPTS="$OPTS -Dactivemq.username=$MQ_USER_LOGIN"
-		fi
 		if [[ "$MQ_USER_PASSWORD" ]]; then
 			OPTS="$OPTS -Dactivemq.password=$MQ_USER_PASSWORD"
 		fi
