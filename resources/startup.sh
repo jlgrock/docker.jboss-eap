@@ -41,28 +41,29 @@ fi
 if [[ "$MAX_INSTANCE_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
 fi
+if [[ "$MQ_HOST" ]]; then
+	OPTS="$OPTS -Dactivemq.host=$MQ_HOST"
+fi
+if [[ "$MQ_PORT" ]]; then
+	OPTS="$OPTS -Dactivemq.port=$MQ_PORT"
+fi
+if [[ "$MQ_USER_LOGIN" ]]; then
+	OPTS="$OPTS -Dactivemq.username=$MQ_USER_LOGIN"
+fi
+if [[ "$MQ_USER_PASSWORD" ]]; then
+	OPTS="$OPTS -Dactivemq.password=$MQ_USER_PASSWORD"
+fi
+
+OPTS="$OPTS -Djboss.bind.address=$HOST_IP"
+OPTS="$OPTS -Djboss.bind.address.unsecure=$HOST_IP"
+OPTS="$OPTS -Djboss.bind.address.management=$HOST_IP"
 
 case "$MODE" in
 	STANDALONE*)
 		echo "Starting EAP Server as Standalone"
-		if [[ "$MQ_USER_LOGIN" ]]; then
-			OPTS="$OPTS -Dactivemq.username=$MQ_USER_LOGIN"
-		fi
-		if [[ "$MQ_USER_PASSWORD" ]]; then
-			OPTS="$OPTS -Dactivemq.password=$MQ_USER_PASSWORD"
-		fi
-		if [[ "$MQ_HOST" ]]; then
-			OPTS="$OPTS -Dactivemq.host=$MQ_HOST"
-		fi
-		if [[ "$MQ_PORT" ]]; then
-			OPTS="$OPTS -Dactivemq.port=$MQ_PORT"
-		fi
-		echo "OPTS=$OPTS"
-			
-		$EAP_HOME/bin/standalone.sh -c standalone.xml $OPTS -Djboss.bind.address=$HOST_IP \
-                       -Djboss.bind.address.unsecure=$HOST_IP \
-                       -Djboss.bind.address.management=$HOST_IP
-
+		
+		echo "OPTS=$OPTS"	
+		$EAP_HOME/bin/standalone.sh -c standalone.xml $OPTS
 	;;
 	DOMAIN_MASTER*)
 		echo "Starting EAP Server as Domain Master with mod_cluster load balancer"
@@ -75,26 +76,17 @@ case "$MODE" in
 		service httpd start
 
 		echo "OPTS=$OPTS"
-		$EAP_HOME/bin/domain.sh --host-config=host-master.xml $OPTS \
-			-Djboss.bind.address=$HOST_IP \
-			-Djboss.bind.address.unsecure=$HOST_IP \
-			-Djboss.bind.address.management=$HOST_IP
+		$EAP_HOME/bin/domain.sh --host-config=host-master.xml $OPTS
 	;;
 	DOMAIN_SLAVE*)
 		echo "Starting EAP Server as Domain Slave"
 		echo "Connecting to Master at $MASTER_PORT_9999_TCP_ADDR:$MASTER_PORT_9999_TCP_PORT"
+		
+		OPTS="$OPTS -Djboss.domain.master.address=$MASTER_PORT_9999_TCP_ADDR"
+		OPTS="$OPTS -Djboss.domain.master.port=$MASTER_PORT_9999_TCP_PORT"
+
 		echo "OPTS=$OPTS"
-		$EAP_HOME/bin/domain.sh --host-config=host-slave.xml \
-			-Djboss.domain.master.address=$MASTER_PORT_9999_TCP_ADDR \
-			-Djboss.domain.master.port=$MASTER_PORT_9999_TCP_PORT \
-			-Djboss.bind.address=$HOST_IP \
-			-Djboss.bind.address.unsecure=$HOST_IP \
-			-Djboss.bind.address.management=$HOST_IP \
-			-Dactivemq.username=$MQ_USER_LOGIN \
-			-Dactivemq.password=MQ_USER_PASSWORD \
-			-Dactivemq.host=$MQ_HOST \
-			-Dactivemq.port=$MQ_PORT
-	
+		$EAP_HOME/bin/domain.sh --host-config=host-slave.xml $OPTS
 	;;
 	*)
 		echo "Invalid option for MODE=$MODE"
