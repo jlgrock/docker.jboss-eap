@@ -16,7 +16,7 @@ fi
 
 case "$MESSAGE_QUEUE" in
 	HORNETQ*)
-		# Do nothing
+		cp -rf ./domain.xml $EAP_HOME/domain/configuration/domain.xml
 	;;
 	ACTIVE_MQ*)
 		cp -rf ./standalone-amq.xml $EAP_HOME/standalone/configuration/standalone.xml		
@@ -29,6 +29,18 @@ case "$MESSAGE_QUEUE" in
 	;;
 esac	
 
+if [[ "$MIN_SERVER_GROUP_HEAP" ]]; then
+	OPTS = "$OPTS --Djvm.group.heap.min=$MIN_SERVER_GROUP_HEAP"
+fi
+if [[ "$MAX_SERVER_GROUP_HEAP" ]]; then
+	OPTS = "$OPTS --Djvm.group.heap.max=$MAX_SERVER_GROUP_HEAP"
+fi
+if [[ "$MIN_INSTANCE_HEAP" ]]; then
+	OPTS = "$OPTS --Djvm.instance.heap.min=$MIN_INSTANCE_HEAP"
+fi
+if [[ "$MAX_INSTANCE_HEAP" ]]; then
+	OPTS = "$OPTS --Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
+fi
 
 case "$MODE" in
 	STANDALONE*)
