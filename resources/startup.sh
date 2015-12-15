@@ -30,16 +30,16 @@ case "$MESSAGE_QUEUE" in
 esac	
 
 if [[ "$MIN_SERVER_GROUP_HEAP" ]]; then
-	OPTS = "$OPTS --Djvm.group.heap.min=$MIN_SERVER_GROUP_HEAP"
+	OPTS="$OPTS -Djvm.group.heap.min=$MIN_SERVER_GROUP_HEAP"
 fi
 if [[ "$MAX_SERVER_GROUP_HEAP" ]]; then
-	OPTS = "$OPTS --Djvm.group.heap.max=$MAX_SERVER_GROUP_HEAP"
+	OPTS="$OPTS -Djvm.group.heap.max=$MAX_SERVER_GROUP_HEAP"
 fi
 if [[ "$MIN_INSTANCE_HEAP" ]]; then
-	OPTS = "$OPTS --Djvm.instance.heap.min=$MIN_INSTANCE_HEAP"
+	OPTS="$OPTS -Djvm.instance.heap.min=$MIN_INSTANCE_HEAP"
 fi
 if [[ "$MAX_INSTANCE_HEAP" ]]; then
-	OPTS = "$OPTS --Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
+	OPTS="$OPTS -Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
 fi
 if [[ "$MQ_HOST" ]]; then
 	OPTS="$OPTS -Dactivemq.host=$MQ_HOST"
