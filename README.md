@@ -47,7 +47,7 @@ Below is the complete list of available options that can be used to customize yo
 - **MQ_HOST**: The hostname of ActiveMQ server. The default is `localhost`.
 - **MQ_PORT**: The hostname of ActiveMQ server. The default is `61616`.
 - **MQ_USER_LOGIN**: The login to access the Message Queue.  If needed, the Default is set to `admin`.
-- **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `admin`.
+- **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `admin123!`.
 - **MIN_SERVER_GROUP_HEAP**: The minimum amount of memory to use for the server group. In standalone mode, this is unused.  By default for a domain instance, this is `1000m`.
 - **MAX_SERVER_GROUP_HEAP**: The maximum amount of memory to use for the server group. In standalone mode, this is unused.  By default for a domain instance, this is `1000m`.
 - **MIN_INSTANCE_HEAP**: The minimum amount of memory to use for the instance. By default for a domain instance, this is `64m`.
