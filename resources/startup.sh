@@ -93,6 +93,13 @@ case "$MODE" in
 	;;
 	DOMAIN_SLAVE*)
 		echo "Starting EAP Server as Domain Slave"
+		
+		echo "Waiting for master admin console to start on $MASTER_PORT_9999_TCP_ADDR:$MASTER_PORT_9990_TCP_PORT"
+		while [ "$(curl -s -o /dev/null -I -w "%{http_code}" $MASTER_PORT_9990_TCP_ADDR:$MASTER_PORT_9990_TCP_PORT)" = "000" ]; do
+				sleep 1;
+		done;
+		echo "Master admin console started"
+		
 		echo "Connecting to Master at $MASTER_PORT_9999_TCP_ADDR:$MASTER_PORT_9999_TCP_PORT"
 		
 		OPTS="$OPTS -Djboss.domain.master.address=$MASTER_PORT_9999_TCP_ADDR"
