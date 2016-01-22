@@ -48,11 +48,11 @@ if [[ "$MAX_SERVER_GROUP_HEAP" ]]; then
 fi
 if [[ "$MIN_INSTANCE_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.instance.heap.min=$MIN_INSTANCE_HEAP"
-	#sed -i -e 's//bar/g' filename
+	sed -i -e "s/-Xms1303m/-Xms$MIN_INSTANCE_HEAP/g" $EAP_HOME/bin/standalone.conf
 fi
 if [[ "$MAX_INSTANCE_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
-	#sed -i -e 's/foo/bar/g' filename
+	sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" $EAP_HOME/bin/standalone.conf
 fi
 if [[ "$MQ_HOST" ]]; then
 	OPTS="$OPTS -Dactivemq.host=$MQ_HOST"

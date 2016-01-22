@@ -8,7 +8,6 @@ Dockerfile to build a Java EE Container Manager Docker image.
 
 - **1GB** is the **standard** memory size. You should up that for production according to your needs.
 
-
 # How to get the image
 
 You can either download the image from a docker registry or build it yourself.
@@ -49,11 +48,11 @@ Below is the complete list of available options that can be used to customize yo
 - **MQ_HOST**: The hostname of ActiveMQ server. The default is `localhost`.
 - **MQ_PORT**: The hostname of ActiveMQ server. The default is `61616`.
 - **MQ_USER_LOGIN**: The login to access the Message Queue.  If needed, the Default is set to `admin`.
-- **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `admin123!`.
+- **MQ_USER_PASSWORD**: The password for Message Queue. If needed, the default is `admin`.
 - **MIN_SERVER_GROUP_HEAP**: The minimum amount of memory to use for the server group. In standalone mode, this is unused.  By default for a domain instance, this is `1000m`.
 - **MAX_SERVER_GROUP_HEAP**: The maximum amount of memory to use for the server group. In standalone mode, this is unused.  By default for a domain instance, this is `1000m`.
-- **MIN_INSTANCE_HEAP**: The minimum amount of memory to use for the instance. By default for a domain instance, this is `64m`.
-- **MAX_INSTANCE_HEAP**: The maximum amount of memory to use for the instance. By default for a domain instance, this is `256m`.
+- **MIN_INSTANCE_HEAP**: The minimum amount of memory to use for the instance. By default for a domain instance, this is `1303m`.
+- **MAX_INSTANCE_HEAP**: The maximum amount of memory to use for the instance. By default for a domain instance, this is `1303m`.
 
 # Examples of Running a Container
 
