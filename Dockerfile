@@ -15,8 +15,7 @@ RUN yum install -y httpd
 RUN chmod +x *.sh
 RUN ./install_eap.sh
 
-### Create EAP User
-RUN $EAP_HOME/bin/add-user.sh admin admin123! --silent
+
 
 ### Open Ports
 # Web, Management Console, Management Console API, Web Proxy, MOD_CLUSTER Manager

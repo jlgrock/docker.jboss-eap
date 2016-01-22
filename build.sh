@@ -28,6 +28,7 @@ if [ ! -e install_files/activemq-rar*.rar ]; then
 fi
 # Create containers
 echo "Creating JBoss EAP Container ..."
+docker pull jlgrock/centos-oraclejdk:6.6-8u45
 docker build -q --rm -t jlgrock/jboss-eap:$JBOSS_EAP .
 
 if [ $? -eq 0 ]; then
