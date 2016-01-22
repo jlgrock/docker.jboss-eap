@@ -43,6 +43,8 @@ This script will build the core version of the EAP instance, storing the image t
 Below is the complete list of available options that can be used to customize your installation.
 
 - **MODE**: You can either run in `STANDARD` mode (single server), `DOMAIN_MASTER` (clustered - is required for any slaves to be started), or `DOMAIN_SLAVE` (clustered - needs to be linked to the DOMAIN_MASTER).  The default is `STANDARD`.
+- **EAP_USERNAME**: The username for accessing the admin console.  By default this is `admin`.
+- **EAP_PASSWORD**: The username for accessing the admin console.  By default this is `admin123!`.
 - **MESSAGE_QUEUE**: The message queue to use.  By default, EAP current uses HornetQ, which is specified by `HORNETQ`.  If this is set to `ACTIVE_MQ`, this will instead use the connector for ActiveMQ/A-MQ.  This will be paired with whatever A-MQ connector that is provided at the time of building.
 - **MQ_HOST**: The hostname of ActiveMQ server. The default is `localhost`.
 - **MQ_PORT**: The hostname of ActiveMQ server. The default is `61616`.

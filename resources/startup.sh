@@ -6,6 +6,17 @@
 # set the host ip for eth0 - this may not scale well
 HOST_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
+if [[ ! "$EAP_USERNAME" ]]; then
+	$EAP_USERNAME="admin"
+fi
+
+if [[ ! "$EAP_PASSWORD" ]]; then
+	$EAP_PASSWORD="admin123!"
+fi
+
+### Create EAP User
+$EAP_HOME/bin/add-user.sh $EAP_USERNAME $EAP_PASSWORD --silent
+
 if [[ ! "$MODE" ]]; then
 	MODE="STANDALONE"
 fi
@@ -37,9 +48,11 @@ if [[ "$MAX_SERVER_GROUP_HEAP" ]]; then
 fi
 if [[ "$MIN_INSTANCE_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.instance.heap.min=$MIN_INSTANCE_HEAP"
+	#sed -i -e 's//bar/g' filename
 fi
 if [[ "$MAX_INSTANCE_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
+	#sed -i -e 's/foo/bar/g' filename
 fi
 if [[ "$MQ_HOST" ]]; then
 	OPTS="$OPTS -Dactivemq.host=$MQ_HOST"
