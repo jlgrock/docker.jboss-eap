@@ -5,9 +5,9 @@ ENV EAP_PARENT /opt/app/jboss
 ENV EAP_HOME $EAP_PARENT/jboss-eap
 ENV JBOSS_HOME $EAP_PARENT/jboss-eap
 
-RUN mkdir -p /opt/app/jboss/modules/app-modules
-RUN mkdir -p /opt/app/jboss/modules/sec-modules
-RUN mkdir -p /opt/app/jboss/modules/db-modules
+RUN mkdir -p $EAP_PARENT/modules/app-modules
+RUN mkdir -p $EAP_PARENT/modules/sec-modules
+RUN mkdir -p $EAP_PARENT/modules/db-modules
 
 ADD resources/ $EAP_PARENT/
 ADD install_files/ $EAP_PARENT/
@@ -15,7 +15,6 @@ ADD VERSION $EAP_PARENT/VERSION
 ADD loadenv.sh $EAP_PARENT/loadenv.sh
 
 WORKDIR $EAP_PARENT
-RUN yum install -y httpd
 RUN chmod +x *.sh
 RUN ./install_eap.sh
 

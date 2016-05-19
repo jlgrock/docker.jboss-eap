@@ -7,11 +7,11 @@
 HOST_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
 if [[ ! "$EAP_USERNAME" ]]; then
-	$EAP_USERNAME="admin"
+	EAP_USERNAME="admin"
 fi
 
 if [[ ! "$EAP_PASSWORD" ]]; then
-	$EAP_PASSWORD="admin123!"
+	EAP_PASSWORD="admin123!"
 fi
 
 ### Create EAP User
