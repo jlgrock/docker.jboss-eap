@@ -1,9 +1,13 @@
 FROM jlgrock/centos-oraclejdk:6.6-8u45
 MAINTAINER Justin Grant <jlgrock@gmail.com>
 
-ENV EAP_PARENT /opt/jboss
+ENV EAP_PARENT /opt/app/jboss
 ENV EAP_HOME $EAP_PARENT/jboss-eap
 ENV JBOSS_HOME $EAP_PARENT/jboss-eap
+
+RUN mkdir -p /opt/app/jboss/modules/app-modules
+RUN mkdir -p /opt/app/jboss/modules/sec-modules
+RUN mkdir -p /opt/app/jboss/modules/db-modules
 
 ADD resources/ $EAP_PARENT/
 ADD install_files/ $EAP_PARENT/
@@ -14,8 +18,6 @@ WORKDIR $EAP_PARENT
 RUN yum install -y httpd
 RUN chmod +x *.sh
 RUN ./install_eap.sh
-
-
 
 ### Open Ports
 # Web, Management Console, Management Console API, Web Proxy, MOD_CLUSTER Manager
