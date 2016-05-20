@@ -26,6 +26,21 @@ fi
 ### Create EAP User
 $EAP_HOME/bin/add-user.sh $EAP_USERNAME $EAP_PASSWORD --silent
 
+case "$MESSAGE_QUEUE" in
+	HORNETQ*)
+		cp -rf ./domain.xml $EAP_HOME/domain/configuration/domain.xml
+	;;
+	ACTIVE_MQ*)
+		cp -rf ./standalone-amq.xml $EAP_HOME/standalone/configuration/standalone.xml		
+		cp -rf ./standalone-full-ha-amq.xml $EAP_HOME/standalone/configuration/standalone-full-ha.xml
+		cp -rf ./domain-amq.xml $EAP_HOME/domain/configuration/domain.xml
+	;;
+	*)
+		echo "Invalid option for MESSAGE_QUEUE=$MESSAGE_QUEUE"
+		exit 1
+	;;
+esac	
+
 if [[ "$MIN_SERVER_GROUP_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.group.heap.min=$MIN_SERVER_GROUP_HEAP"
 fi
