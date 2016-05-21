@@ -46,7 +46,7 @@ echo "Container ID '$ID' now running"
 
 # Flatten the image (removes AUFS layers) and create a new image
 FLAT_ID=$(docker export ${ID} | docker import - ${IMAGE_NAME}:${IMAGE_VERSION})
-echo "Created Flattened image with ID: ${FLAT_ID}"
+echo "Created Flattened image with ID: ${FLAT_ID} for ${IMAGE_NAME}:${IMAGE_VERSION}"
 
 # Cleanup
 echo "destroying intermediate containers related to $TMP_IMAGE_NAME (all versions)"
