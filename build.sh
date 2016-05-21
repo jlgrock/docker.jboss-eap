@@ -45,7 +45,7 @@ ID=$(docker run -d ${TMP_IMAGE_NAME}:${IMAGE_VERSION} /bin/bash)
 echo "Container ID '$ID' now running"
 
 # Flatten the image (removes AUFS layers) and create a new image
-docker export ${ID} | docker import - ${IMAGE_NAME}
+docker export ${ID} | docker import - ${IMAGE_NAME}:${IMAGE_VERSION}
 echo "destroying images/containers related to $TMP_IMAGE_NAME (all versions)"
 docker ps -a | awk '{ print $1,$2 }' | grep ${TMP_IMAGE_NAME} | awk '{ print $1 }' | xargs -I {} docker rm {}
 docker images -a | awk '{ print $1, $3 }' | grep ${TMP_IMAGE_NAME} | awk '{ print $2 }' | xargs -I {} docker rmi {}
