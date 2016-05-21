@@ -45,7 +45,10 @@ ID=$(docker run -d ${TMP_IMAGE_NAME}:${IMAGE_VERSION} /bin/bash)
 echo "Container ID '$ID' now running"
 
 # Flatten the image (removes AUFS layers) and create a new image
-FLAT_ID=$(docker export ${ID} | docker import - ${IMAGE_NAME}:${IMAGE_VERSION})
+# Note that you lose history/layers and environment variables with this method,
+# but it slims down the image significantly.  The known necessary environment
+# variables have been added back
+FLAT_ID=$(docker export ${ID} | docker import --change="ENV EAP_PARENT /opt/app/jboss" --change="ENV EAP_HOME /opt/app/jboss-eap" - ${IMAGE_NAME}:${IMAGE_VERSION})
 echo "Created Flattened image with ID: ${FLAT_ID} for ${IMAGE_NAME}:${IMAGE_VERSION}"
 
 # Cleanup

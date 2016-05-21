@@ -3,7 +3,6 @@ MAINTAINER Justin Grant <jlgrock@gmail.com>
 
 ENV EAP_PARENT /opt/app/jboss
 ENV EAP_HOME $EAP_PARENT/jboss-eap
-ENV JBOSS_HOME $EAP_PARENT/jboss-eap
 
 RUN mkdir -p $EAP_PARENT/modules/app-modules
 RUN mkdir -p $EAP_PARENT/modules/sec-modules
