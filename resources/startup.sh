@@ -55,6 +55,14 @@ if [[ "$MAX_INSTANCE_HEAP" ]]; then
 	OPTS = "$OPTS --Djvm.instance.heap.max=$MAX_INSTANCE_HEAP"
 	sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" $EAP_HOME/bin/standalone.conf
 fi
+if [[ "$MQ_HOST" ]]; then
+	OPTS="$OPTS -Dactivemq.host=$MQ_HOST"
+fi
+
+if [[ "$MQ_PORT" ]]; then
+	OPTS="$OPTS -Dactivemq.port=$MQ_PORT"
+fi
+
 
 OPTS="$OPTS -Djboss.bind.address=$HOST_IP"
 OPTS="$OPTS -Djboss.bind.address.unsecure=$HOST_IP"
