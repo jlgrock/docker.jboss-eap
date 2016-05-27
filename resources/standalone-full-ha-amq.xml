@@ -463,8 +463,8 @@
                               enabled="true"
                               pool-name="ConnectionFactory">
                             <pool>
-                                <min-pool-size>1</min-pool-size>
-                                <max-pool-size>20</max-pool-size>
+                                <min-pool-size>20</min-pool-size>
+                                <max-pool-size>40</max-pool-size>
                                 <prefill>false</prefill>
                                 <is-same-rm-override>false</is-same-rm-override>
                             </pool>
