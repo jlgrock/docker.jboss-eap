@@ -29,11 +29,15 @@
         <exclude path="org/fusesource/**"/>
     </exports>
     <dependencies>
-        <module name="javax.api"/>
+        <module name="javax.api" />
+        <module name="javax.resource.api" />
+        <module name="javax.transaction.api" />
+        <module name="javax.jms.api" />
         <module name="org.slf4j"/>
-        <module name="javax.resource.api"/>
         <module name="javax.jms.api"/>
         <module name="javax.management.j2ee.api"/>
+        <module name="org.springframework.beans" />
+        <module name="javax.management.j2ee.api" />
     </dependencies>
 </module>
 
