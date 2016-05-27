@@ -442,6 +442,7 @@
         <subsystem xmlns="urn:jboss:domain:resource-adapters:1.1">
             <resource-adapters>
                 <resource-adapter id="activemq-rar.rar">
+                    <module slot="main" id="org.apache.activemq"/>
                     <archive>
                         activemq-rar.rar
                     </archive>
