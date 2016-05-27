@@ -7,6 +7,7 @@ ENV EAP_HOME $EAP_PARENT/jboss-eap
 RUN mkdir -p $EAP_PARENT/modules/app-modules
 RUN mkdir -p $EAP_PARENT/modules/sec-modules
 RUN mkdir -p $EAP_PARENT/modules/db-modules
+RUN mkdir -p $EAP_PARENT/modules/app-modules/org/apache/activemq/main/
 
 ADD resources/ $EAP_PARENT/
 ADD install_files/ $EAP_PARENT/
