@@ -4,6 +4,8 @@
 for line in $(cat VERSION)
 do
   case $line in
+  	CENTOS=*)  eval $line ;; # beware! eval!
+	JDK=*)  eval $line ;; # beware! eval!
     JBOSS_AMQ=*)  eval $line ;; # beware! eval!
 	JBOSS_AMQ_BUILD=*)  eval $line ;; # beware! eval!
 	JBOSS_EAP=*)  eval $line ;; # beware! eval!

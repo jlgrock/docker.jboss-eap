@@ -14,21 +14,22 @@
 . ./loadenv.sh
 
 FROM_IMAGE_NAME=jlgrock/centos-oraclejdk
-FROM_IMAGE_VERSION=6.6-8u45
+FROM_IMAGE_VERSION=${CENTOS}-${JDK}
 IMAGE_NAME=jlgrock/jboss-eap
-IMAGE_VERSION=$JBOSS_EAP
+IMAGE_VERSION=${JBOSS_EAP}
 TMP_IMAGE_NAME="${IMAGE_NAME}-temp"
 
-echo "Processing for JBOSS EAP Version $JBOSS_EAP"
+echo "Processing for ${IMAGE_NAME}:${IMAGE_VERSION}"
 
 if [ ! -e install_files/jboss-eap-$JBOSS_EAP.zip ]; then
-	echo "could not find file install_files/jboss-eap-$JBOSS_EAP.zip"
+	echo "could not find file install_files/jboss-eap-${JBOSS_EAP}.zip"
 	echo "You should put the required JBoss EAP binary into the root directory first."
 	exit 255
 fi
 
-if [ ! -e install_files/activemq-rar*.rar ]; then
-	echo "could not find file install_files/jboss-activemq-rar*.rar"
+# TODO update this so it is more generic
+if [ ! -e install_files/jboss-activemq-rar-5.11.0.redhat-621084.rar ]; then
+	echo "could not find file install_files/jboss-activemq-rar-5.11.0.redhat-621084.rar"
 	echo "You should put the required JBoss A-MQ connector in the root directory first."
 	exit 255
 fi

@@ -10,8 +10,7 @@ rm -rf *.zip
 mv $EAP_PARENT/jboss-eap* $EAP_HOME
 
 # Create ActiveMQ module
-mv $EAP_PARENT/amq-module.xml $EAP_PARENT/modules/app-modules/org/apache/activemq/main/module.xml
-mv $EAP_PARENT/activemq-rar*.rar $EAP_PARENT/modules/app-modules/org/apache/activemq/main/activemq-rar.rar
+mv $EAP_PARENT/activemq-rar*.rar $EAP_HOME/standalone/deployments/
 
 # Put adjusted configuration files into the appropriate directory.  Some will be adjusted at startup
 cp -rf host*.xml $EAP_HOME/domain/configuration/
