@@ -267,7 +267,7 @@
                     <archive>
                         activemq-rar.rar
                     </archive>
-                    <transaction-support>XATransaction</transaction-support>
+                    <transaction-support>NoTransaction</transaction-support>
                     <config-property name="UserName">
                         ${activemq.username:admin}
                     </config-property>
@@ -283,18 +283,12 @@
                               jndi-name="java:/ConnectionFactory"
                               enabled="true"
                               pool-name="ConnectionFactory">
-                            <xa-pool>
+                            <pool>
                                 <min-pool-size>1</min-pool-size>
                                 <max-pool-size>20</max-pool-size>
                                 <prefill>false</prefill>
                                 <is-same-rm-override>false</is-same-rm-override>
-                            </xa-pool>
-                            <recovery>  
-                                <recover-credential>  
-                                    <user-name>${activemq.username:admin}</user-name>
-                                    <password>${activemq.password:admin}</password>
-                                </recover-credential>
-                            </recovery>
+                            </pool>
                         </connection-definition>
                     </connection-definitions>
                     <admin-objects>
