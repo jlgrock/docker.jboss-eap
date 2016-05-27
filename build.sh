@@ -28,7 +28,7 @@ if [ ! -e install_files/jboss-eap-$JBOSS_EAP.zip ]; then
 fi
 
 # TODO update this so it is more generic
-if [ ! -e install_files/jboss-activemq-rar-5.11.0.redhat-621084.rar ]; then
+if [ ! -e install_files/activemq-rar-5.11.0.redhat-621084.rar ]; then
 	echo "could not find file install_files/jboss-activemq-rar-5.11.0.redhat-621084.rar"
 	echo "You should put the required JBoss A-MQ connector in the root directory first."
 	exit 255
