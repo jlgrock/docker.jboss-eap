@@ -10,30 +10,30 @@ Dockerfile to build a Java EE Container Manager Docker image.
 
 # How to get the image
 
-You can either download the image from a docker registry or build it yourself.
+## Option 1: Download from a Docker Registry
 
-## Building the Image
+These builds are not performed by the **Docker Trusted Build** service because it contains proprietary code, but this method can be used if using a Private Docker Registry.
 
-* [Download JBoss EAP](http://www.jboss.org/products/eap/download/)
-* Put the file in the local `install_files` directory
+```bash
+docker pull <private_registry_name>/jlgrock/jboss-eap:$VERSION
+```
+
+## Option 2: Building the Image
+
+* [Download JBoss EAP 6.4 and the 6.4.6 patch](http://www.jboss.org/products/eap/download/)
+* Put the file in the local `eap-files/install_files` directory
 * Update the VERSION file
 * [Download JBoss A-MQ](http://www.jboss.org/products/amq/download/) to a temporary directory
 * Unzip the downloaded file
 * navigate to `extras` directory for the ActiveMQ bundle
 * Unzip the file in this location
 * navigate this unzipped file to the `lib/optional` directory
-* copy `activemq-rar-*.rar` file to the local `install_files`
+* copy `activemq-rar-*.rar` file to the local `etap-files/install_files`
 * run `build.sh`
-* 
-These builds are not performed by the **Docker Trusted Build** service because it contains JBoss proprietary code, but this method can be used if using a [Private Docker Registry](https://docs.docker.com/registry/deploying/).
-
-```bash
-docker pull jlgrock/jboss-eap:$VERSION
-```
 
 ## Building Custom Versions
 
-This script will build the core version of the EAP instance, storing the image to `jlgrock/jboss-eap`. If you drop extra WARs into the install directory, you can create a custom deployment. It is suggested that you don't use the build script though, as you'll want to store this image to something other than `jlgrock/jboss-eap`. For example, you can put webapp.war in there and create an instance called `my/webapp` with the command `docker build -q --rm -t my/webapp:$WEBAPP_VERSION`.  Currently, this will only work for the standalone version.
+This script will build the core version of the EAP instance, storing the image to `jlgrock/jboss-eap`. If you drop extra WARs into the install directory, you can create a custom deployment. It is suggested that you don't use the build script though, as you'll want to store this image to something other than `jlgrock/jboss-eap`. For example, you can put webapp.war in there and create an instance called `my/webapp` with the command `docker build -q --rm -t my/webapp:$WEBAPP_VERSION`.  Currently, this will only work for the standalone version.  If you want to deploy to an clustered environment, you must deploy this manually after restart.
 
 # Available Configuration Parameters
 
@@ -64,30 +64,35 @@ Below is the complete list of available options that can be used to customize yo
 
 Starting a Standalone EAP instance
 ```bash
-docker run -it --rm -P jlgrock/jboss-eap:6.4.0
+docker run -it --rm -P jlgrock/jboss-eap:6.4.6
+```
+
+If the entry point needs to be overridden for debugging and other purposes, the following can be used: 
+```bash
+docker run -it --entrypoint /bin/bash jlgrock/jboss-eap:6.4.6
 ```
 
 Starting a Master in a Clustered environment
 ```bash
-docker run -it --rm -P -e MODE=DOMAIN_MASTER --name eap_master jlgrock/jboss-eap:6.4.0
+docker run -it --rm -P -e MODE=DOMAIN_MASTER --name eap_master jlgrock/jboss-eap:6.4.6
 ```
 
 Adding a Slave in a Clustered environment
 ```bash
-docker run -it --rm -e MODE=DOMAIN_SLAVE --link eap_master:MASTER jlgrock/jboss-eap:6.4.0
+docker run -it --rm -e MODE=DOMAIN_SLAVE --link eap_master:MASTER jlgrock/jboss-eap:6.4.6
 ```
 
 Starting a Master in a Clustered environment with an A-MQ connector)
 ```bash
-docker run -it --rm -P -p 9990:9990 -e MODE=DOMAIN_MASTER -e MESSAGE_QUEUE=ACTIVE_MQ -e MQ_HOST=myhost.bla.com --name eap_master jlgrock/jboss-eap:6.4.0
+docker run -it --rm -P -p 9990:9990 -e MODE=DOMAIN_MASTER -e MESSAGE_QUEUE=ACTIVE_MQ -e MQ_HOST=myhost.bla.com --name eap_master jlgrock/jboss-eap:6.4.6
 ```
 
 Adding a Slave in a Clustered environment with an A-MQ connector (linked to master server, activemq server specified)
 ```bash
-docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ACTIVE_MQ -e MQ_HOST=myhost.bla.com --link eap_master:MASTER jlgrock/jboss-eap:6.4.0
+docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ACTIVE_MQ -e MQ_HOST=myhost.bla.com --link eap_master:MASTER jlgrock/jboss-eap:6.4.6
 ```
 
 Adding a Slave in a Clustered environment with an A-MQ connector (linked to master server and linked to activemq)
 ```bash
-docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ACTIVE_MQ --link eap_master:MASTER --link amq:AMQ jlgrock/jboss-eap:6.4.0
+docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ACTIVE_MQ --link eap_master:MASTER --link amq:AMQ jlgrock/jboss-eap:6.4.6
 ```
