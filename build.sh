@@ -59,7 +59,7 @@ echo "Container ID '$ID' now running"
 # Note that you lose history/layers and environment variables with this method,
 # but it slims down the image significantly.  The known necessary environment
 # variables have been added back
-FLAT_ID=$(docker export ${ID} | docker import --change="ENV EAP_PARENT /opt/app/jboss" --change="ENV EAP_HOME /opt/app/jboss-eap" - ${FILES_IMAGE_NAME}:${IMAGE_VERSION})
+FLAT_ID=$(docker export ${ID} | docker import - ${FILES_IMAGE_NAME}:${IMAGE_VERSION})
 echo "Created Flattened image with ID: ${FLAT_ID} for ${IMAGE_NAME}:${IMAGE_VERSION}"
 
 # Cleanup
