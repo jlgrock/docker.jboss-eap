@@ -49,7 +49,7 @@ docker pull ${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
 
 # Create a temporary image
 echo "Creating JBoss EAP Files Image ..."
-docker build -q --rm -t ${TMP_IMAGE_NAME}:${IMAGE_VERSION} eap-files/
+docker build -q -t ${TMP_IMAGE_NAME}:${IMAGE_VERSION} eap-files/
 
 # Start Image and get ID
 ID=$(docker run -d ${TMP_IMAGE_NAME}:${IMAGE_VERSION} /bin/bash)
