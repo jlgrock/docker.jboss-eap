@@ -16,8 +16,6 @@ set -e
 # load the versions
 . ./loadenv.sh
 
-FROM_IMAGE_NAME=jlgrock/centos-oraclejdk
-FROM_IMAGE_VERSION=${CENTOS}-${JDK}
 FILES_IMAGE_NAME=jlgrock/jboss-eap-files
 IMAGE_NAME=jlgrock/jboss-eap
 IMAGE_VERSION=${JBOSS_EAP}
@@ -44,10 +42,7 @@ if [ ! -e eap-files/install-files/jboss-eap-6.4.6-patch.zip ]; then
 	exit 255
 fi
 
-# pull latest from repo
-docker pull ${FROM_IMAGE_NAME}:${FROM_IMAGE_VERSION}
-
-# Create a temporary image
+# Create a temporary image - assuming you do a base image pull yourself (if necessary)
 echo "Creating JBoss EAP Files Image ..."
 docker build -q -t ${TMP_IMAGE_NAME}:${IMAGE_VERSION} eap-files/
 
