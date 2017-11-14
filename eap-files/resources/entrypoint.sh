@@ -92,6 +92,7 @@ case "$MESSAGE_QUEUE" in
         cp -rf $EAP_PARENT/domain.xml $EAP_HOME/domain/configuration/domain.xml
     ;;
     ACTIVE_MQ*)
+    ACTIVEMQ*)
         if [ "$amq_ssl" = true ]; then
             echo "Configuring EAP with AMQ SSL"
             check_store_files
