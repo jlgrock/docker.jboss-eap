@@ -1,4 +1,4 @@
-FROM jlgrock/centos-oraclejdk:6.6-8u152
+FROM jlgrock/centos-oraclejdk:6.6-8u161
 MAINTAINER Justin Grant <jlgrock@gmail.com>
 
 ENV EAP_PARENT /opt/app/jboss
