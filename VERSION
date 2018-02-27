@@ -1,6 +1,6 @@
 # A key/value list of all known versions
 CENTOS=6.6
-JDK=8u152
+JDK=8u161
 MOD_CLUSTER_VERSION=1.2.6.Final
 JBOSS_AMQ=6.2.0
 JBOSS_AMQ_BUILD=redhat-133
