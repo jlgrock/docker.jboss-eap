@@ -1,0 +1,8 @@
+export HOST_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+${EAP_HOME}/bin/standalone.sh -c standalone.xml -Djboss.bind.address=${HOST_IP} -Djboss.bind.address.unsecure=${HOST_IP} -Djboss.bind.address.management=${HOST_IP}
+
+
+
+@Resource(mappedName="java:/JmsXA")
+private ConnectionFactory connectionFactory;
+

@@ -1,13 +1,12 @@
-FROM jlgrock/jboss-eap-files:6.4.6
+FROM jlgrock/jboss-eap-files:7.2.0
 MAINTAINER Justin Grant <jlgrock@gmail.com>
 
 # Set the environment variables.  The encryption password can be overwritten
 ENV EAP_PARENT /opt/app/jboss
-ENV EAP_HOME $EAP_PARENT/jboss-eap
-ENV ENCRYPT_PASSWORD encryptPassword
+ENV EAP_HOME ${EAP_PARENT}/jboss-eap
 
 # Set the working directory for execution
-WORKDIR $EAP_HOME
+WORKDIR ${EAP_HOME}
 
 # TODO make a nice volume mapping.  This could work, but then what would you do if you want to extend
 # and not to map

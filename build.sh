@@ -24,21 +24,9 @@ TMP_IMAGE_NAME="${IMAGE_NAME}-temp"
 echo "Processing for ${IMAGE_NAME}:${IMAGE_VERSION}"
 
 # TODO update these file checks so they are more generic
-if [ ! -e eap-files/install-files/jboss-eap-6.4.0.zip ]; then
-	echo "could not find file eap-files/install_files/jboss-eap-6.4.0.zip"
+if [[ ! -e eap-files/install-files/jboss-eap-7.2.0.zip ]]; then
+	echo "could not find file eap-files/install_files/jboss-eap-*.zip"
 	echo "You should put the required JBoss EAP binary into the root directory first."
-	exit 255
-fi
-
-if [ ! -e eap-files/install-files/activemq-rar-5.11.0.redhat-621084.rar ]; then
-	echo "could not find file eap-files/install_files/jboss-activemq-rar-5.11.0.redhat-621084.rar"
-	echo "You should put the required JBoss A-MQ connector in the root directory first."
-	exit 255
-fi
-
-if [ ! -e eap-files/install-files/jboss-eap-6.4.6-patch.zip ]; then
-	echo "could not find file eap-files/install_files/jboss-eap-6.4.6-patch.zip"
-	echo "You should put the required JBoss A-MQ connector in the root directory first."
 	exit 255
 fi
 
@@ -66,7 +54,7 @@ docker images -a | awk '{ print $1, $3 }' | grep ${TMP_IMAGE_NAME} | awk '{ prin
 echo "Creating JBoss EAP Image ${IMAGE_NAME}:${IMAGE_VERSION}..."
 docker build -q --rm -t ${IMAGE_NAME}:${IMAGE_VERSION} eap/
 
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 ]]; then
     echo "Container Built"
 else
     echo "Error: Unable to Build Container"
