@@ -1,5 +1,5 @@
 # A key/value list of all known versions
 CENTOS=6.6
-JDK=8u212
+JDK=8u221
 JBOSS_AMQ=7.3.0
 JBOSS_EAP=7.2.0
