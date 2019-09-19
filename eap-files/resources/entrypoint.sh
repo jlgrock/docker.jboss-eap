@@ -78,33 +78,33 @@ create_eap_user() {
 create_option_string() {
     OPTS="$OPTS"
     if [[ "${MIN_SERVER_GROUP_HEAP}" ]]; then
-        OPTS = "${OPTS} --Djvm.group.heap.min=${MIN_SERVER_GROUP_HEAP}"
+        OPTS = "${OPTS} -Djvm.group.heap.min=${MIN_SERVER_GROUP_HEAP}"
     fi
     if [[ "${MAX_SERVER_GROUP_HEAP}" ]]; then
-        OPTS = "${OPTS} --Djvm.group.heap.max=${MAX_SERVER_GROUP_HEAP}"
+        OPTS = "${OPTS} -Djvm.group.heap.max=${MAX_SERVER_GROUP_HEAP}"
     fi
     if [[ "${MIN_INSTANCE_HEAP}" ]]; then
-        OPTS = "${OPTS} --Djvm.instance.heap.min=${MIN_INSTANCE_HEAP}"
+        OPTS = "${OPTS} -Djvm.instance.heap.min=${MIN_INSTANCE_HEAP}"
         sed -i -e "s/-Xms1303m/-Xms${MIN_INSTANCE_HEAP}/g" $EAP_HOME/bin/standalone.conf
     fi
     if [[ "${MAX_INSTANCE_HEAP}" ]]; then
-        OPTS = "${OPTS} --Djvm.instance.heap.max=${MAX_INSTANCE_HEAP}"
+        OPTS = "${OPTS} -Djvm.instance.heap.max=${MAX_INSTANCE_HEAP}"
         sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" $EAP_HOME/bin/standalone.conf
     fi
     if [[ "${MQ_HOST}" ]]; then
-        OPTS="${OPTS} --Dartemis.host=${MQ_HOST}"
+        OPTS="${OPTS} -Dartemis.host=${MQ_HOST}"
     fi
 
     if [[ "${MQ_PORT}" ]]; then
-        OPTS="${OPTS} --Dartemis.port=${MQ_PORT}"
+        OPTS="${OPTS} -Dartemis.port=${MQ_PORT}"
     fi
 
     if [[ "${MQ_USER_LOGIN}" ]]; then
-        OPTS = "${OPTS} --Dartemis.user=${MQ_USER_PASSWORD}"
+        OPTS = "${OPTS} -Dartemis.user=${MQ_USER_PASSWORD}"
     fi
 
     if [[ "${MQ_USER_PASSWORD}" ]]; then
-        OPTS = "${OPTS} --Dartemis.password=${MQ_USER_PASSWORD}"
+        OPTS = "${OPTS} -Dartemis.password=${MQ_USER_PASSWORD}"
     fi
 
     # set the host ip for eth0 - this may not scale well
