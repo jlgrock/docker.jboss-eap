@@ -92,11 +92,11 @@ create_option_string() {
         sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" $EAP_HOME/bin/standalone.conf
     fi
     if [[ "${MQ_HOST}" ]]; then
-        OPTS="${OPTS} -artemis.host=${MQ_HOST}"
+        OPTS="${OPTS} --Dartemis.host=${MQ_HOST}"
     fi
 
     if [[ "${MQ_PORT}" ]]; then
-        OPTS="${OPTS} -artemis.port=${MQ_PORT}"
+        OPTS="${OPTS} --Dartemis.port=${MQ_PORT}"
     fi
 
     if [[ "${MQ_USER_LOGIN}" ]]; then
