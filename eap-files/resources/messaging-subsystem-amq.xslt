@@ -13,17 +13,11 @@
     <xsl:template match="/*[local-name() = 'server']/*[local-name() = 'profile']/*[local-name() = 'subsystem'][namespace-uri() = 'urn:jboss:domain:messaging-activemq:4.0']/*[local-name() = 'server']/*[local-name() = 'pooled-connection-factory']">
         <!-- The tags to replace -->
         <xsl:copy>
-            <xsl:element name="pooled-connection-factory" namespace="urn:jboss:domain:messaging-activemq:4.0">
-                <xsl:attribute name="name">ArtemisFactory</xsl:attribute>
-                <xsl:attribute name="connectors">netty-remote-throughput</xsl:attribute>
-                <xsl:attribute name="entries">java:/ArtemisFactory</xsl:attribute>
-                <xsl:attribute name="user">${artemis.user:amq}</xsl:attribute>
-                <xsl:attribute name="password">${artemis.pass:amq123!}</xsl:attribute>
-            </xsl:element>
-            <xsl:element name="remote-connector">
-                <xsl:attribute name="name">netty-remote-throughput</xsl:attribute>
-                <xsl:attribute name="socket-binding">messaging-remote-throughput</xsl:attribute>
-            </xsl:element>
+            <xsl:attribute name="name">ArtemisFactory</xsl:attribute>
+            <xsl:attribute name="connectors">netty-remote-throughput</xsl:attribute>
+            <xsl:attribute name="entries">java:/ArtemisFactory</xsl:attribute>
+            <xsl:attribute name="user">${artemis.user:amq}</xsl:attribute>
+            <xsl:attribute name="password">${artemis.pass:amq123!}</xsl:attribute>
         </xsl:copy>
     </xsl:template>
 
