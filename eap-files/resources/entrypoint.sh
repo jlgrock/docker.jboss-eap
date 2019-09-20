@@ -5,7 +5,7 @@ set -e
 
 # Copies the full config over for use
 reset_config() {
-    /bin/cp -f ${EAP_HOME}/standalone/configuration/standalone-full.xml ${EAP_HOME}/standalone/configuration/standalone.xml
+    /bin/cp -f "${EAP_HOME}/standalone/configuration/standalone-full.xml" "${EAP_HOME}/standalone/configuration/standalone.xml"
 }
 
 # check to see if the keystore and truststore files exist.  If they don't, throw an exception and stop the image.
@@ -70,7 +70,7 @@ check_env_values() {
 
 ### Create EAP User
 create_eap_user() {
-    ${EAP_HOME}/bin/add-user.sh ${EAP_USERNAME} ${EAP_PASSWORD} --silent
+    "${EAP_HOME}/bin/add-user.sh ${EAP_USERNAME} ${EAP_PASSWORD} --silent"
 }
 
 # Creates the options to be passed to the program that will start up jboss, facilitating variable replacement in the
@@ -78,18 +78,18 @@ create_eap_user() {
 create_option_string() {
     OPTS="$OPTS"
     if [[ "${MIN_SERVER_GROUP_HEAP}" ]]; then
-        OPTS = "${OPTS} -Djvm.group.heap.min=${MIN_SERVER_GROUP_HEAP}"
+        OPTS="${OPTS} -Djvm.group.heap.min=${MIN_SERVER_GROUP_HEAP}"
     fi
     if [[ "${MAX_SERVER_GROUP_HEAP}" ]]; then
-        OPTS = "${OPTS} -Djvm.group.heap.max=${MAX_SERVER_GROUP_HEAP}"
+        OPTS="${OPTS} -Djvm.group.heap.max=${MAX_SERVER_GROUP_HEAP}"
     fi
     if [[ "${MIN_INSTANCE_HEAP}" ]]; then
-        OPTS = "${OPTS} -Djvm.instance.heap.min=${MIN_INSTANCE_HEAP}"
-        sed -i -e "s/-Xms1303m/-Xms${MIN_INSTANCE_HEAP}/g" $EAP_HOME/bin/standalone.conf
+        OPTS="${OPTS} -Djvm.instance.heap.min=${MIN_INSTANCE_HEAP}"
+        sed -i -e "s/-Xms1303m/-Xms${MIN_INSTANCE_HEAP}/g" "$EAP_HOME/bin/standalone.conf"
     fi
     if [[ "${MAX_INSTANCE_HEAP}" ]]; then
-        OPTS = "${OPTS} -Djvm.instance.heap.max=${MAX_INSTANCE_HEAP}"
-        sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" $EAP_HOME/bin/standalone.conf
+        OPTS="${OPTS} -Djvm.instance.heap.max=${MAX_INSTANCE_HEAP}"
+        sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" "$EAP_HOME/bin/standalone.conf"
     fi
     if [[ "${MQ_HOST}" ]]; then
         OPTS="${OPTS} -Dartemis.host=${MQ_HOST}"
@@ -100,11 +100,11 @@ create_option_string() {
     fi
 
     if [[ "${MQ_USER_LOGIN}" ]]; then
-        OPTS = "${OPTS} -Dartemis.user=${MQ_USER_PASSWORD}"
+        OPTS="${OPTS} -Dartemis.user=${MQ_USER_PASSWORD}"
     fi
 
     if [[ "${MQ_USER_PASSWORD}" ]]; then
-        OPTS = "${OPTS} -Dartemis.password=${MQ_USER_PASSWORD}"
+        OPTS="${OPTS} -Dartemis.password=${MQ_USER_PASSWORD}"
     fi
 
     # set the host ip for eth0 - this may not scale well
@@ -125,7 +125,7 @@ remove_amq() {
     --inplace \
     -d "/*[local-name() = 'server']/*[local-name() = 'profile']/*[local-name() = 'subsystem'][namespace-uri() = 'urn:jboss:domain:messaging-activemq:4.0']" \
     -d "/*[local-name() = 'server']/*[local-name() = 'extensions']/*[local-name() = 'extension'][@module = 'org.wildfly.extension.messaging-activemq']" \
-    ${EAP_HOME}/standalone/configuration/standalone.xml
+    "${EAP_HOME}/standalone/configuration/standalone.xml"
 }
 
 update_amq() {
@@ -146,7 +146,7 @@ start_standalone() {
 
     create_option_string
 
-    ${EAP_HOME}/bin/standalone.sh -c standalone.xml ${OPTS}
+    "${EAP_HOME}/bin/standalone.sh -c standalone.xml ${OPTS}"
 }
 
 start_domain_master() {
@@ -158,7 +158,7 @@ start_domain_master() {
 
     create_option_string
 
-    ${EAP_HOME}/bin/domain.sh --host-config=host-master.xml ${OPTS}
+    "${EAP_HOME}/bin/domain.sh --host-config=host-master.xml ${OPTS}"
 }
 
 start_domain_slave() {
@@ -170,7 +170,7 @@ start_domain_slave() {
 
     create_option_string
 
-    ${EAP_HOME}/bin/domain.sh --host-config=host-slave.xml ${OPTS}
+    "${EAP_HOME}/bin/domain.sh --host-config=host-slave.xml ${OPTS}"
 }
 
 reset_config
