@@ -70,7 +70,7 @@ check_env_values() {
 
 ### Create EAP User
 create_eap_user() {
-    "${EAP_HOME}/bin/add-user.sh ${EAP_USERNAME} ${EAP_PASSWORD} --silent"
+    ${EAP_HOME}/bin/add-user.sh ${EAP_USERNAME} ${EAP_PASSWORD} --silent
 }
 
 # Creates the options to be passed to the program that will start up jboss, facilitating variable replacement in the
@@ -125,7 +125,7 @@ remove_amq() {
     --inplace \
     -d "/*[local-name() = 'server']/*[local-name() = 'profile']/*[local-name() = 'subsystem'][namespace-uri() = 'urn:jboss:domain:messaging-activemq:4.0']" \
     -d "/*[local-name() = 'server']/*[local-name() = 'extensions']/*[local-name() = 'extension'][@module = 'org.wildfly.extension.messaging-activemq']" \
-    "${EAP_HOME}/standalone/configuration/standalone.xml"
+    ${EAP_HOME}/standalone/configuration/standalone.xml
 }
 
 update_amq() {
@@ -134,7 +134,7 @@ update_amq() {
     xmlstarlet tr "${EAP_PARENT}/messaging-subsystem-amq.xslt" "${EAP_HOME}/standalone/configuration/standalone.xml" > "${EAP_HOME}/standalone/configuration/standalone2.xml"
     xmlstarlet tr "${EAP_PARENT}/output-binding-amq.xslt" "${EAP_HOME}/standalone/configuration/standalone2.xml" > "${EAP_HOME}/standalone/configuration/standalone3.xml"
     mv "${EAP_HOME}/standalone/configuration/standalone3.xml" "${EAP_HOME}/standalone/configuration/standalone.xml"
-    rm -rf "${EAP_HOME}/standalone/configuration/standalone2.xml"
+    rm -rf ${EAP_HOME}/standalone/configuration/standalone2.xml
 }
 
 start_standalone() {
@@ -146,7 +146,7 @@ start_standalone() {
 
     create_option_string
 
-    "${EAP_HOME}/bin/standalone.sh -c standalone.xml ${OPTS}"
+    ${EAP_HOME}/bin/standalone.sh -c standalone.xml ${OPTS}
 }
 
 start_domain_master() {
@@ -158,7 +158,7 @@ start_domain_master() {
 
     create_option_string
 
-    "${EAP_HOME}/bin/domain.sh --host-config=host-master.xml ${OPTS}"
+    ${EAP_HOME}/bin/domain.sh --host-config=host-master.xml ${OPTS}
 }
 
 start_domain_slave() {
@@ -170,7 +170,7 @@ start_domain_slave() {
 
     create_option_string
 
-    "${EAP_HOME}/bin/domain.sh --host-config=host-slave.xml ${OPTS}"
+    ${EAP_HOME}/bin/domain.sh --host-config=host-slave.xml ${OPTS}
 }
 
 reset_config
