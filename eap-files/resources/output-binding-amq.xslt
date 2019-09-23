@@ -18,7 +18,7 @@
         <xsl:element name="outbound-socket-binding" namespace="urn:jboss:domain:8.0">
             <xsl:attribute name="name">messaging-remote-throughput</xsl:attribute>
             <xsl:element name="remote-destination">
-                <xsl:attribute name="host">${artemis.url:amq}</xsl:attribute>
+                <xsl:attribute name="host">${artemis.url:amq73}</xsl:attribute>
                 <xsl:attribute name="port">${artemis.port:61616}</xsl:attribute>
             </xsl:element>
         </xsl:element>
