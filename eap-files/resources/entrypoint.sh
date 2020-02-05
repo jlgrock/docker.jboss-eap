@@ -45,6 +45,22 @@ set_defaults() {
     if [[ ! "${AMQ_SSL}" ]]; then
         AMQ_SSL="false"
     fi
+
+    if [ -z "${MQ_HOST}" ]; then
+	MQ_HOST=amq73
+    fi
+
+    if [ -z "${MQ_PORT}" ]; then
+	MQ_PORT=61616
+    fi
+
+    if [ -z "${MQ_USER}" ]; then
+	MQ_USER=amq
+    fi
+
+    if [ -z "${MQ_PASSWORD}" ]; then
+	MQ_PASSWORD=amq123!
+    fi
 }
 
 # Check to make sure that the environment variables are the allowable values, error if they are not.
@@ -91,21 +107,6 @@ create_option_string() {
         OPTS="${OPTS} -Djvm.instance.heap.max=${MAX_INSTANCE_HEAP}"
         sed -i -e "s/-Xmx1303m/-Xmx$MAX_INSTANCE_HEAP/g" "$EAP_HOME/bin/standalone.conf"
     fi
-    if [[ "${MQ_HOST}" ]]; then
-        OPTS="${OPTS} -Dartemis.host=${MQ_HOST}"
-    fi
-
-    if [[ "${MQ_PORT}" ]]; then
-        OPTS="${OPTS} -Dartemis.port=${MQ_PORT}"
-    fi
-
-    if [[ "${MQ_USER_LOGIN}" ]]; then
-        OPTS="${OPTS} -Dartemis.user=${MQ_USER_PASSWORD}"
-    fi
-
-    if [[ "${MQ_USER_PASSWORD}" ]]; then
-        OPTS="${OPTS} -Dartemis.password=${MQ_USER_PASSWORD}"
-    fi
 
     # set the host ip for eth0 - this may not scale well
     HOST_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
@@ -131,8 +132,10 @@ remove_amq() {
 update_amq() {
     echo "Updating AMQ sections"
 
-    xmlstarlet tr ${XSLT_OPTS} "${EAP_PARENT}/messaging-subsystem-amq.xslt" ${XSLT_PARAMS} "${EAP_HOME}/standalone/configuration/standalone.xml" > "${EAP_HOME}/standalone/configuration/standalone2.xml"
-    xmlstarlet tr ${XSLT_OPTS} "${EAP_PARENT}/output-binding-amq.xslt" ${XSLT_PARAMS} "${EAP_HOME}/standalone/configuration/standalone2.xml" > "${EAP_HOME}/standalone/configuration/standalone3.xml"
+    XSLT_PARAMS="-s artemis.host=${MQ_HOST} -s artemis.port=${MQ_PORT} -s artemis.user=${MQ_USER} -s artemis.pass=${MQ_PASSWORD}"
+    
+    xmlstarlet tr "${EAP_PARENT}/messaging-subsystem-amq.xslt" ${XSLT_PARAMS} "${EAP_HOME}/standalone/configuration/standalone.xml" > "${EAP_HOME}/standalone/configuration/standalone2.xml"
+    xmlstarlet tr "${EAP_PARENT}/output-binding-amq.xslt" ${XSLT_PARAMS} "${EAP_HOME}/standalone/configuration/standalone2.xml" > "${EAP_HOME}/standalone/configuration/standalone3.xml"
     mv "${EAP_HOME}/standalone/configuration/standalone3.xml" "${EAP_HOME}/standalone/configuration/standalone.xml"
     rm -rf ${EAP_HOME}/standalone/configuration/standalone2.xml
 }
