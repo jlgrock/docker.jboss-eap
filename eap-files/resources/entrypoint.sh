@@ -131,8 +131,8 @@ remove_amq() {
 update_amq() {
     echo "Updating AMQ sections"
 
-    xmlstarlet tr "${EAP_PARENT}/messaging-subsystem-amq.xslt" "${EAP_HOME}/standalone/configuration/standalone.xml" > "${EAP_HOME}/standalone/configuration/standalone2.xml"
-    xmlstarlet tr "${EAP_PARENT}/output-binding-amq.xslt" "${EAP_HOME}/standalone/configuration/standalone2.xml" > "${EAP_HOME}/standalone/configuration/standalone3.xml"
+    xmlstarlet tr ${XSLT_OPTS} "${EAP_PARENT}/messaging-subsystem-amq.xslt" ${XSLT_PARAMS} "${EAP_HOME}/standalone/configuration/standalone.xml" > "${EAP_HOME}/standalone/configuration/standalone2.xml"
+    xmlstarlet tr ${XSLT_OPTS} "${EAP_PARENT}/output-binding-amq.xslt" ${XSLT_PARAMS} "${EAP_HOME}/standalone/configuration/standalone2.xml" > "${EAP_HOME}/standalone/configuration/standalone3.xml"
     mv "${EAP_HOME}/standalone/configuration/standalone3.xml" "${EAP_HOME}/standalone/configuration/standalone.xml"
     rm -rf ${EAP_HOME}/standalone/configuration/standalone2.xml
 }
