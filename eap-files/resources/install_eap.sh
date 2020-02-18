@@ -10,6 +10,9 @@ unzip -q ${INSTALL_DIR}/jboss-eap-7.2.0.zip -d ${EAP_PARENT}
 mv ${EAP_PARENT}/jboss-eap-7.2 ${EAP_PARENT}/jboss-eap
 chmod +x ${EAP_HOME}/bin/*.sh
 
+# install the patch
+$EAP_HOME/bin/jboss-cli.sh --command="patch apply $INSTALL_DIR/jboss-eap-7.2.6-patch.zip"
+
 # Create ActiveMQ module
 #mv ${INSTALL_DIR}/activemq-rar*.rar ${EAP_HOME}/standalone/deployments/activemq-rar.rar
 
