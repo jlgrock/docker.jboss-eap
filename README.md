@@ -114,7 +114,7 @@ docker run -it --rm -p 9990:9990 -e MODE=DOMAIN_MASTER -e MESSAGE_QUEUE=ACTIVE_M
 
 Adding a Slave in a Clustered environment with an A-MQ connector (linked to master server, activemq server specified)
 ```bash
-docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ACTIVE_MQ -e MQ_HOST=myhost.bla.com --link eap_master:MASTER jlgrock/jboss-eap:${VERSION}
+docker run -it --rm -e MODE=DOMAIN_SLAVE -e MESSAGE_QUEUE=ARTEMIS -e MQ_HOST=myhost.bla.com --link eap_master:MASTER jlgrock/jboss-eap:${VERSION}
 ```
 
 Adding a Slave in a Clustered environment with an A-MQ connector (linked to master server and linked to activemq)
