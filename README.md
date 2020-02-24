@@ -59,11 +59,16 @@ this as Docker doesn't port map to localhost unless you are on Linux.
 - **MQ_PORT**: The port exposed by Artemis MQ.  The default is `61616`.
 - **MQ_USER_LOGIN**: The login to access the Message Queue.  By default, this is `admin`
 - **MQ_USER_PASSWORD**: The password for Message Queue.  By default, this is `admin123!`
-
 - **QUEUES**: A comma-delimited array of Queues or Topics that will be added to the container definition.  JNDI 
 resources will be accessible at location of `java:/queue/{QUEUE_NAME}` and the pool name of `{QUEUE_NAME}` (where
 "{QUEUE_NAME}" is the name provided in your array of Queues/Topics).  e.g the list `ABC,DEF` will provide the JNDI 
 resources `java:/queue/ABC` in the pool `ABC` and `java:/queue/DEF` in the pool `DEF`.
+
+- **DB**: The type of database to attach to the EAP container.  Possible values are `NONE`, `H2`, `POSTGRESQL`, `MYSQL`.  By default, this is `NONE`.  *This still needs to be implemented*
+- **DB_HOST**: The hostname of the database to connect to.
+- **DB_PORT**: The port of the database to connect to.
+- **DB_USERNAME**: The default is `admin`.
+- **DB_PASSWORD**: The default is `admin123!`.
 
 - **MIN_SERVER_GROUP_HEAP**: The minimum amount of memory to use for the server group. In standalone mode, this is 
 unused.  By default for a domain instance, this is `1000m`.
