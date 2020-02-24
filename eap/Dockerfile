@@ -1,4 +1,4 @@
-FROM jlgrock/jboss-eap-files:7.2.0
+FROM jlgrock/jboss-eap-files:7.2.6
 MAINTAINER Justin Grant <jlgrock@gmail.com>
 
 # Set the environment variables.  The encryption password can be overwritten
